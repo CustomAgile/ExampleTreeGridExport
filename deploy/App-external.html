@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random App Name85552</title>
+    <title>Tree Grid Sample Export</title>
 
     <script type="text/javascript" src="https://rally1.rallydev.com/apps/2.1/sdk.js"></script>
 
     <script type="text/javascript">
         Rally.onReady(function () {
-                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",launch:function(){}});
+                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",launch(){Ext.create("Rally.data.wsapi.TreeStoreBuilder").build({models:["userstory"],autoLoad:!0,enableHierarchy:!0}).then({success:this._onStoreBuilt,scope:this})},_onStoreBuilt(e){this.add({xtype:"rallytreegrid",store:e,context:this.getContext(),enableEditing:!1,enableBulkEdit:!1,shouldShowRowActionsColumn:!1,enableRanking:!1,columnCfgs:["Name","ScheduleState","Owner"]})}});
 
             Rally.launchApp('CustomApp', {
-                name:"Random App Name85552",
+                name:"Tree Grid Sample Export",
                 parentRepos:"",
                 version:"0.1.1"
             });
