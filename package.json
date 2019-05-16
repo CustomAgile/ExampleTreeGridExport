@@ -1,14 +1,18 @@
 {
-  "name": "RandomAppName85552",
+  "name": "tree-grid-export",
   "version": "0.1.1",
   "private": true,
+  "dependencies": {
+    "custom-agile-ext-components": "git+https://github.com/CustomAgile/JavaScriptComponents.git",
+    "papaparse": "^4.6.3"
+  },
   "devDependencies": {
-      "grunt": "1.0.1",
-      "grunt-cli": "1.2.0",
-      "grunt-contrib-jasmine": "1.0.3",
-      "grunt-contrib-jshint": "1.1.0",
-      "grunt-contrib-connect": "1.0.2",
-      "rally-sdk2-test-utils": "0.1.2"
+    "grunt": "1.0.1",
+    "grunt-cli": "1.2.0",
+    "grunt-contrib-jasmine": "1.0.3",
+    "grunt-contrib-jshint": "1.1.0",
+    "grunt-contrib-connect": "1.0.2",
+    "rally-sdk2-test-utils": "0.1.2"
   },
   "scripts": {
     "test": "npm i && grunt test",

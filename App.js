@@ -4,7 +4,7 @@ Ext.define('CustomApp', {
 
     launch() {
         Ext.create('Rally.data.wsapi.TreeStoreBuilder').build({
-            models: ['userstory'],
+            models: ['PortfolioItem/Initiative'],
             autoLoad: true,
             enableHierarchy: true
         }).then({
@@ -14,7 +14,20 @@ Ext.define('CustomApp', {
     },
 
     _onStoreBuilt(store) {
-        this.add({
+        let records = {};
+        // gather all the work items when the store auto expands
+        store.addListener(
+            'load',
+            (s, root) => {
+                root.childNodes.forEach(({ data }) => {
+                    records[data.ObjectID] = data;
+                });
+                if (root.data.ObjectID) {
+                    records[root.data.ObjectID] = root.data;
+                }
+            }
+        );
+        this.grid = this.add({
             xtype: 'rallytreegrid',
             store,
             context: this.getContext(),
@@ -27,6 +40,12 @@ Ext.define('CustomApp', {
                 'ScheduleState',
                 'Owner'
             ]
+        });
+
+        this.grid.expandAll(() => {
+            setTimeout(() => {
+                CustomAgile.export.records.arrayToCSV(_.values(records, 'test.csv'));
+            }, 2000);
         });
     }
 });
